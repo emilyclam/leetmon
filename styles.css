@@ -1,0 +1,6 @@
+.sprite {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  pointer-events: none;
+}
