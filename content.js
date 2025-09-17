@@ -1,4 +1,5 @@
 MAX_INDEX = 649;  // pokedex  number of last pokemon in gen5
+// bc they don't have gifs for pokemon after gen5
 
 console.log("LeetMon extension loaded!");
 class Pokemon {
@@ -39,10 +40,8 @@ async function addPokemon() {
   const sprite = document.createElement("img");
   sprite.className = "sprite";
   sprite.src = pokemon.front;
-  console.log(pokemon);
   document.body.appendChild(sprite);
   pokemon.capture();
-  console.log(pokemon);
   return pokemon;
 }
 
@@ -59,6 +58,13 @@ function watchForSubmissions(pokemon) {
   observer.observe(targetNode, { childList: true, subtree: true });
 }
 
-console.log(test)
+function throwPokeball() {
+  const pokeball = document.createElement("img");
+  pokeball.src = chrome.runtime.getURL("assets/pokeball.png");
+  pokeball.className = 'pokeball';
+  document.body.appendChild(pokeball);
+}
+
 const pokemon = addPokemon();
 watchForSubmissions(pokemon);
+throwPokeball();

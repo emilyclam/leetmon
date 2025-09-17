@@ -15,7 +15,7 @@ body {
   width: 300px;
   color: white;
   font-family: pokemonFont;
-  padding: 30px 25px 25px 25px;
+  padding: 30px;
   margin: auto;
 }
 
@@ -24,7 +24,7 @@ h1 {
   letter-spacing: -8px;
   font-size: 40px;
   text-align: center;
-  margin: 0 0 10px 0; 
+  margin: 0 0 20px 0; 
 }
 
 p {

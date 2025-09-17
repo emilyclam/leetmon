@@ -4,3 +4,32 @@
   right: 50px;
   pointer-events: none;
 }
+
+.pokeball {
+  position: fixed;
+  bottom: 50px;
+  left: 150px;
+  width: 15px;
+  animation: throw 2s forwards;
+}
+
+@keyframes throw {
+  0% {
+    transform: translate(0, 0);
+  }
+  40% {
+    transform: translate(200px, -200px); /* curve up */
+  }
+  70% {
+    transform: translate(400px, 0); /* hit target */
+  }
+  80% {
+    transform: translate(400px, 30px); /* drop down */
+  }
+  90% {
+    transform: translate(400px, 10px); /* bounce up */
+  }
+  100% {
+    transform: translate(400px, 20px); /* settle */
+  }
+}
