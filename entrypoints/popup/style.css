@@ -13,6 +13,8 @@
 body {
   background-color: rgb(33, 33, 33);
   width: 300px;
+  max-height: 400px;
+  overflow-y: scroll;
   color: white;
   font-family: pokemonFont;
   padding: 30px;
@@ -37,6 +39,7 @@ p {
   grid-template-columns: repeat(7, 1fr);
   grid-auto-rows: 40px;
   gap: 2px;
+  max-height: 400px;
 }
 
 .sprite {

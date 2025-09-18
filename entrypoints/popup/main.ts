@@ -1,6 +1,6 @@
-import { browser } from "wxt/browser";
 
 function populatePokemonList() {
+  console.log("fill pokemon list")
   browser.storage.local.get({ caughtPokemon: [] }, (data) => {
     const caughtPokemon = data.caughtPokemon;
     const list = document.getElementsByClassName('pokemonList')[0];
