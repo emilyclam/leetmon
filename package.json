@@ -1,6 +1,6 @@
 {
   "name": "leetmon",
-  "description": "manifest.json description",
+  "description": "Do Leetcode, catch pokemon",
   "private": true,
   "version": "0.0.0",
   "type": "module",
