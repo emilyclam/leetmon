@@ -24,6 +24,7 @@
   right: 280px;
   width: 15px;
   pointer-events: none;
+  filter: brightness(1);
 }
 
 .sparkle {

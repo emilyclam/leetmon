@@ -3,12 +3,13 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
 import pokeballUrl from '@/assets/pokeball.png';
 import sparkleUrl from '@/assets/sparkle.png';
-//import sparkleUrl from '@/assets/sparkle2.webp';
 
 gsap.registerPlugin(MotionPathPlugin);
 
+const MAX_INDEX: number = 649;
+
 export async function getRandomPokemon(): Promise<Pokemon> {
-  const id = Math.ceil(Math.random() * 649);
+  const id = Math.ceil(Math.random() * MAX_INDEX);
   return await Pokemon.create(id);
 }
 
@@ -46,12 +47,15 @@ export function watchForSubmissions(pokemon: Pokemon) {
     const resultEl = document.querySelector('span[data-e2e-locator="submission-result"]');
     if (resultEl && resultEl.textContent.includes("Accepted")) {
       console.log("problem successfully solved!");
+      observer.disconnect();
       pokemon.capture();
+      animateThrowPokeball(pokemon);
     }
   });
 
   observer.observe(targetNode, { childList: true, subtree: true });
 }
+
 
 export function animateThrowPokeball(pokemon: Pokemon) {
   const pokemonSprite = document.getElementsByClassName('sprite')[0];
@@ -117,12 +121,16 @@ export function animateThrowPokeball(pokemon: Pokemon) {
     repeat: 1,
     ease: "power4.out"
   })
+  .to(pokeball, {
+    delay: 0.5,
+    filter: 'brightness(0.3)',
+    duration: 0.3
+  })
   .to(sparkle, {
-    delay: 1,
     scale: 50,
     y: "-=30",
     duration: 0.5,
-  })
+  }, "-=0.1")
   .to(sparkle, {
     duration: 0.8,
     ease: "power2.out",
@@ -134,7 +142,7 @@ export function animateThrowPokeball(pokemon: Pokemon) {
     duration: 0,
   })
   .to(successText, {
-    delay: 3,
+    delay: 2,
     opacity: 0,
     duration: 1,
   })
@@ -143,8 +151,13 @@ export function animateThrowPokeball(pokemon: Pokemon) {
     duration: 0,
   })
   .to(pokedexText, {
-    delay: 3,
+    delay: 2,
     opacity: 0,
     duration: 1,
   })
+  .to(pokeball, {
+    opacity: 0,
+    duration: 3
+  })
+  
 }

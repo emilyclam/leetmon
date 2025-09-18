@@ -5,14 +5,11 @@ import './style.css';
 export default defineContentScript({
   matches: ['*://*.google.com/', 'https://leetcode.com/problems/*'],
   async main() {
-    const MAX_INDEX = 649;  // pokedex  number of last pokemon in gen5
-    // bc they don't have gifs for pokemon after gen5
-
     console.log("LeetMon extension loaded!");
     
-    const pokemon = await helpers.getRandomPokemon();
+    const pokemon: Pokemon = await helpers.getRandomPokemon();
     helpers.animateOpening(pokemon);
-    helpers.watchForSubmissions(pokemon);
-    //helpers.animateThrowPokeball(pokemon);
+    const submitBtn = document.querySelector('button[data-e2e-locator="console-submit-button"]')!;
+    submitBtn.addEventListener('click', () => helpers.watchForSubmissions(pokemon));
   },
 });
