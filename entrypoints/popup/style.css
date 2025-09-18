@@ -17,15 +17,14 @@ body {
   overflow-y: scroll;
   color: white;
   font-family: pokemonFont;
-  padding: 30px;
+  padding: 30px 15px 15px 15px;
   margin: auto;
 }
 
 h1 {
   font-family: titleFont;
-  letter-spacing: -8px;
-  font-size: 40px;
-  text-align: center;
+  letter-spacing: -7px;
+  font-size: 35px;
   margin: 0 0 20px 0; 
 }
 
@@ -35,11 +34,15 @@ p {
 }
 
 .pokemonList {
+  border: solid 1px gray;
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-auto-rows: 40px;
   gap: 2px;
   max-height: 400px;
+  pointer-events: none;
+  user-select: none;
 }
 
 .sprite {

@@ -2,19 +2,42 @@ import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
 import pokeballUrl from '@/assets/pokeball.png';
+import sparkleUrl from '@/assets/sparkle.png';
+//import sparkleUrl from '@/assets/sparkle2.webp';
+
+gsap.registerPlugin(MotionPathPlugin);
 
 export async function getRandomPokemon(): Promise<Pokemon> {
   const id = Math.ceil(Math.random() * 649);
   return await Pokemon.create(id);
 }
 
-export async function addPokemon(pokemon: Pokemon) {
+export function animateOpening(pokemon: Pokemon) {
   const sprite = document.createElement("img");
   sprite.className = "sprite";
   sprite.src = pokemon.front;
   document.body.appendChild(sprite);
-  pokemon.capture();
-  return pokemon;
+  
+  const text = document.createElement("p");
+  text.textContent = `Oh! You encountered a wild ${pokemon.name.toUpperCase()}. Submit a solution to try and catch it!`;
+  text.className = "openingText";
+  document.body.appendChild(text);
+
+  // animate pokemon walking in
+  const tl = gsap.timeline();
+  tl.to(sprite, {
+    x: "-=100",
+    duration: 3,
+  })
+  .to(text, {
+    opacity: 1,
+    duration: 0,
+  })
+  .to(text, {
+    delay: 10,
+    opacity: 0,
+    duration: 1
+  })
 }
 
 export function watchForSubmissions(pokemon: Pokemon) {
@@ -30,14 +53,28 @@ export function watchForSubmissions(pokemon: Pokemon) {
   observer.observe(targetNode, { childList: true, subtree: true });
 }
 
-export function throwPokeball() {
-  gsap.registerPlugin(MotionPathPlugin);
-
+export function animateThrowPokeball(pokemon: Pokemon) {
+  const pokemonSprite = document.getElementsByClassName('sprite')[0];
   const pokeball = document.createElement("img");
   pokeball.src = pokeballUrl;
   pokeball.className = 'pokeball';
   document.body.appendChild(pokeball);
-  const pokemon = document.getElementsByClassName('sprite')[0];
+
+  const sparkle = document.createElement("img");
+  sparkle.src = sparkleUrl;
+  sparkle.className = 'sparkle';
+  document.body.appendChild(sparkle);
+
+  const successText = document.createElement("p");
+  successText.textContent = `Gotcha!\n${pokemon.name.toUpperCase()} was caught!`
+  successText.className = 'text successText';
+  document.body.appendChild(successText);
+
+  const pokedexText = document.createElement("p");
+  pokedexText.textContent = `${pokemon.name.toUpperCase()}'s data was added to your Pokédex`
+  pokedexText.className = 'text pokedexText';
+  document.body.appendChild(pokedexText);
+
 
   let tl = gsap.timeline();
   tl.to(pokeball, {
@@ -53,7 +90,7 @@ export function throwPokeball() {
     rotation: 720,
     ease: "power1.inOut"
   })
-  .to(pokemon, {
+  .to(pokemonSprite, {
     scale: 0,
     duration: 0.2
   })
@@ -79,5 +116,35 @@ export function throwPokeball() {
     yoyo: true,
     repeat: 1,
     ease: "power4.out"
+  })
+  .to(sparkle, {
+    delay: 1,
+    scale: 50,
+    y: "-=30",
+    duration: 0.5,
+  })
+  .to(sparkle, {
+    duration: 0.8,
+    ease: "power2.out",
+    opacity: 0,
+    y: "+=5"
+  }, "-=0.2")
+  .to(successText, {
+    opacity: 1,
+    duration: 0,
+  })
+  .to(successText, {
+    delay: 3,
+    opacity: 0,
+    duration: 1,
+  })
+  .to(pokedexText, {
+    opacity: 1,
+    duration: 0,
+  })
+  .to(pokedexText, {
+    delay: 3,
+    opacity: 0,
+    duration: 1,
   })
 }

@@ -1,5 +1,3 @@
-import { browser } from "wxt/browser";
-
 import { Pokemon } from "@/components/pokemon";
 import * as helpers from "@/components/helpers";
 import './style.css';
@@ -13,8 +11,8 @@ export default defineContentScript({
     console.log("LeetMon extension loaded!");
     
     const pokemon = await helpers.getRandomPokemon();
-    helpers.addPokemon(pokemon);
+    helpers.animateOpening(pokemon);
     helpers.watchForSubmissions(pokemon);
-    helpers.throwPokeball();
+    //helpers.animateThrowPokeball(pokemon);
   },
 });
