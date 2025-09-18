@@ -1,12 +1,12 @@
 @font-face {
   font-family: pokemonFont;
-  src: url(../assets/FreePixel.ttf);
+  src: url(@/assets/FreePixel.ttf);
   font-weight: bold;
 }
 
 @font-face {
   font-family: titleFont;
-  src: url(../assets/MayfairNBP/MayfairNbpBold.ttf);
+  src: url(@/assets/MayfairNBP/MayfairNbpBold.ttf);
   font-weight: bold;
 }
 
