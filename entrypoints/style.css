@@ -1,13 +1,14 @@
 .sprite {
   position: fixed;
-  bottom: 50px;
+  bottom: 70px;
   right: 50px;
   pointer-events: none;
+  text-align: center;
 }
 
 .pokeball {
   position: fixed;
-  bottom: 50px;
-  left: 150px;
+  bottom: 0px;
+  right: 280px;
   width: 15px;
 }
