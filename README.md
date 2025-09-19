@@ -8,13 +8,12 @@
 <br>
 
 ## Table of Contents
-- [Introduction](introduction)
-- [Features](features)
-- [Setup](setup)
-  - [For Users](for-users)
-  - [For Developers](for-developers)
-- [Tools](tools)
-- [Browser Support](browser-support)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Quick Setup for Users](#quick-setup-for-users)
+- [Setup and Build for Developers](#setup-and-build-for-developers)
+- [Tools](#tools)
+- [Browser Support](#browser-support)
 
 <br>
 
