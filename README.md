@@ -39,24 +39,27 @@ LeetMon is a browser extension made by the WXT framework, and animated using the
 
 <br>
 
-<img src="assets/nopokemon.png" width="45%" alt="No pokemon caught yet" />
-<img src="assets/yourpokemon.png" width="45%" alt="The wild pokemon you caught is there" /><br>
+<img src="assets/nopokemon.png" width="40%" alt="No pokemon caught yet" />
+<img src="assets/yourpokemon.png" width="40%" alt="The wild pokemon you caught is there" />
 
 *View your caught Pokemon by clicking the extension widget*
 
 <br>
 
-## Setup
+## Quick Setup for Users
 
-### For Users
-To set up the LeetMon extension in your browser quickly:
+LeetMon is not currently published on any web stores. Instead, to set up the LeetMon extension in your browser quickly:
 1. Go to Releases, and download the zip file for your browser
 2. Unzip the folder
-3. Go to [chrome://extensions](chrome://extensions) and enable Developer mode
+3. Go to <a href="chrome://extensions">chrome://extensions</a> and enable Developer mode
 4. Click **Load unpacked** and select the unzipped folder
 5. Start Leetcoding!
 
-### For Developers
+<br>
+
+## Setup and Build for Developers
+
+### Setup
 To clone and run this application, you'll need Git and Node.js (which comes with npm) installed on your computer. From your command line:
 
 1. Clone this repository
@@ -75,6 +78,30 @@ To clone and run this application, you'll need Git and Node.js (which comes with
   ```sh
   npm run dev
   ```
+<br>
+
+>A new window will open with your extension automatically loaded. Or, follow steps 3-5 of the Quick Setup for Users guide to get your development code running in your regular browser, selecting the appropriate folder from `.output/` to unpack.
+
+<br>
+
+### Build
+
+To build and zip for...
+
+#### Chrome (Default):
+```sh
+wxt zip
+```
+
+#### Firefox:
+```sh
+wxt zip -b firefox
+```
+
+#### Edge:
+```sh
+wxt zip -b edge
+```
 
 <br>
 
