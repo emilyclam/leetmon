@@ -47,10 +47,11 @@ LeetMon is a browser extension made by the WXT framework, and animated using the
 
 ## Quick Setup for Users
 
+**note: this is actually the development instructions for Chrome**
 LeetMon is not currently published on any web stores. Instead, to set up the LeetMon extension in your browser quickly:
 1. Go to Releases, and download the zip file for your browser
 2. Unzip the folder
-3. Go to <a href="chrome://extensions">chrome://extensions</a> and enable Developer mode
+3. Go to chrome://extensions</a> and enable Developer mode
 4. Click **Load unpacked** and select the unzipped folder
 5. Start Leetcoding!
 

@@ -24,12 +24,16 @@ export class Pokemon {
   }
 
   capture() {
-    console.log('capture!');
     this.captureDate = new Date();
     browser.storage.local.get({ caughtPokemon: [] }, (data) => {
       const updated = data.caughtPokemon;
       updated.push(this);
       browser.storage.local.set({ caughtPokemon: updated });
     });
+  }
+
+  flee() {
+    console.log('the pokemon fled!');
+    // idt i need this
   }
 }
