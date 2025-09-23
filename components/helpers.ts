@@ -41,41 +41,11 @@ export function animateOpening(pokemon: Pokemon) {
   })
 }
 
-export function watchForSubmissions(pokemon: Pokemon) {
-  console.log('hit submit')
-  const targetNode = document.body;
-  const observer = new MutationObserver(() => {
-    const resultEl = document.querySelector<HTMLElement>('span[data-e2e-locator="submission-result"]');
-    const newAcceptedSubmission = resultEl
-      && resultEl.textContent.includes("Accepted")
-      && !('pastSubmission' in resultEl.dataset);
-    if (newAcceptedSubmission) {
-      console.log("problem successfully solved!");
-      observer.disconnect();
-      pokemon.capture();
-      animateThrowPokeball(pokemon);
-      resultEl.dataset['pastSubmission'] = 'true';
-      console.log(resultEl.dataset);
-      console.log(resultEl.outerHTML);
-    }
-
-    const errorEl = document.querySelector<HTMLElement>('h3.text-red-60');
-    if (errorEl && !('pastSubmission' in errorEl.dataset)) {
-      console.log('wrong answer or something... fs not the right answer though');
-      observer.disconnect();
-      animatePokemonFleeing(pokemon);
-      errorEl.dataset['pastSubmission'] = 'true';
-    }
-  });
-  console.log('observer is observing')
-  observer.observe(targetNode, { childList: true, subtree: true });
-}
-
 export function animatePokemonFleeing(pokemon: Pokemon) {
   console.log('flee')
   // sprite src = back
   // sprite moves out of screen
-  // remove event listener
+  // text
 }
 
 export function animateThrowPokeball(pokemon: Pokemon) {
