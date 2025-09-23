@@ -6,6 +6,8 @@ import sparkleUrl from '@/assets/sparkle.png';
 
 gsap.registerPlugin(MotionPathPlugin);
 
+// should i create a helper function for creating text? since it's the same 4 lines repeated...
+
 export function opening(pokemon: Pokemon) {
   const sprite = document.createElement("img");
   sprite.id = "sprite";
@@ -14,7 +16,7 @@ export function opening(pokemon: Pokemon) {
   
   const text = document.createElement("p");
   text.textContent = `Oh! You encountered a wild ${pokemon.name.toUpperCase()}. Submit a solution to try and catch it!`;
-  text.className = "openingText";
+  text.className = "pokemonText";
   document.body.appendChild(text);
 
   // animate pokemon walking in
@@ -32,6 +34,9 @@ export function opening(pokemon: Pokemon) {
     opacity: 0,
     duration: 1
   })
+  .then(() => {
+    text.remove();
+  });
 }
 
 export function pokemonFleeing(pokemon: Pokemon) {
@@ -40,7 +45,7 @@ export function pokemonFleeing(pokemon: Pokemon) {
 
   const fleeText = document.createElement("p");
   fleeText.textContent = `Oh no! The wild ${pokemon.name.toUpperCase()} fled!`;
-  fleeText.className = 'text';
+  fleeText.className = 'pokemonText';
   fleeText.style.opacity = '0';
   document.body.appendChild(fleeText);
 
@@ -58,7 +63,12 @@ export function pokemonFleeing(pokemon: Pokemon) {
     delay: 2,
     opacity: 0,
     duration: 1,
+  })
+  .then(() => {
+    pokemonSprite.remove();
+    fleeText.remove();
   });
+  
 }
 
 export function throwPokeball(pokemon: Pokemon) {
@@ -75,12 +85,12 @@ export function throwPokeball(pokemon: Pokemon) {
 
   const successText = document.createElement("p");
   successText.textContent = `Gotcha!\n${pokemon.name.toUpperCase()} was caught!`
-  successText.className = 'text successText';
+  successText.className = 'pokemonText';
   document.body.appendChild(successText);
 
   const pokedexText = document.createElement("p");
   pokedexText.textContent = `${pokemon.name.toUpperCase()}'s data was added to your Pokédex`
-  pokedexText.className = 'text pokedexText';
+  pokedexText.className = 'pokemonText';
   document.body.appendChild(pokedexText);
 
 
@@ -163,5 +173,12 @@ export function throwPokeball(pokemon: Pokemon) {
     opacity: 0,
     duration: 3
   })
+  .then(() => {
+    pokemonSprite?.remove();
+    pokeball.remove();
+    sparkle.remove();
+    successText.remove();
+    pokedexText.remove();
+  });
   
 }
