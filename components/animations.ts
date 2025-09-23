@@ -6,16 +6,9 @@ import sparkleUrl from '@/assets/sparkle.png';
 
 gsap.registerPlugin(MotionPathPlugin);
 
-const MAX_INDEX: number = 649;
-
-export async function getRandomPokemon(): Promise<Pokemon> {
-  const id = Math.ceil(Math.random() * MAX_INDEX);
-  return await Pokemon.create(id);
-}
-
-export function animateOpening(pokemon: Pokemon) {
+export function opening(pokemon: Pokemon) {
   const sprite = document.createElement("img");
-  sprite.className = "sprite";
+  sprite.id = "sprite";
   sprite.src = pokemon.front;
   document.body.appendChild(sprite);
   
@@ -41,15 +34,35 @@ export function animateOpening(pokemon: Pokemon) {
   })
 }
 
-export function animatePokemonFleeing(pokemon: Pokemon) {
-  console.log('flee')
-  // sprite src = back
-  // sprite moves out of screen
-  // text
+export function pokemonFleeing(pokemon: Pokemon) {
+  const pokemonSprite = document.getElementById('sprite') as HTMLImageElement;
+  pokemonSprite.src = pokemon.back;
+
+  const fleeText = document.createElement("p");
+  fleeText.textContent = `Oh no! The wild ${pokemon.name.toUpperCase()} fled!`;
+  fleeText.className = 'text';
+  fleeText.style.opacity = '0';
+  document.body.appendChild(fleeText);
+
+  let tl = gsap.timeline();
+  tl.to(pokemonSprite, {
+    delay: 1,
+    x: "+=200",
+    duration: 3
+  })
+  .to(fleeText, {
+    opacity: 1,
+    duration: 0
+  }, "-=2")
+  .to(fleeText, {
+    delay: 2,
+    opacity: 0,
+    duration: 1,
+  });
 }
 
-export function animateThrowPokeball(pokemon: Pokemon) {
-  const pokemonSprite = document.getElementsByClassName('sprite')[0];
+export function throwPokeball(pokemon: Pokemon) {
+  const pokemonSprite = document.getElementById('sprite');
   const pokeball = document.createElement("img");
   pokeball.src = pokeballUrl;
   pokeball.className = 'pokeball';

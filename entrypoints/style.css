@@ -10,7 +10,7 @@
   font-weight: bold;
 }
 
-.sprite {
+#sprite {
   position: fixed;
   bottom: 70px;
   right: -50px;

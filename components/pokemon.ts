@@ -1,5 +1,7 @@
 import { browser } from "wxt/browser";
 
+const MAX_INDEX: number = 649;
+
 export class Pokemon {
   public readonly id: number;
   public readonly name: string;
@@ -21,6 +23,11 @@ export class Pokemon {
     const data = await res.json();
     let gifs = data.sprites.versions['generation-v']['black-white']['animated']
     return new Pokemon(id, data.name, gifs['front_default'], gifs['back_default']);
+  }
+
+  static async createRandom() {
+    const id = Math.ceil(Math.random() * MAX_INDEX);
+    return await Pokemon.create(id);
   }
 
   capture() {

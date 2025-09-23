@@ -7,7 +7,7 @@ export default defineConfig({
     permissions: ['storage'],
     web_accessible_resources: [{
       "resources": ["check-submission.js"],
-      "matches": ["https://leetcode.com/problems/*"]
+      "matches": ["https://leetcode.com/*"]
     }]
   },
 });

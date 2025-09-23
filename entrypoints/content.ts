@@ -1,5 +1,5 @@
 import { Pokemon } from "@/components/pokemon";
-import * as helpers from "@/components/helpers";
+import * as animate from "@/components/animations";
 import './style.css';
 
 export default defineContentScript({
@@ -11,24 +11,25 @@ export default defineContentScript({
       keepInDom: true,
     });
     
-    const pokemon: Pokemon = await helpers.getRandomPokemon();
-    helpers.animateOpening(pokemon);
+    const pokemon: Pokemon = await Pokemon.createRandom();
+    animate.opening(pokemon);
+
+    const handleSubmission = (event: MessageEvent) => {
+      if (event.source !== window) return; // only accept messages from our page
+        if (event.data.type && event.data.type === 'LEETCODE_SUBMISSION') {
+          console.log('Submission status:', event.data.status);
+          if (event.data.status == "Accepted") {
+            pokemon.capture();
+            animate.throwPokeball(pokemon);
+          } else {
+            animate.pokemonFleeing(pokemon);
+          }
+          window.removeEventListener('message', handleSubmission);
+        }
+    }
 
     // Listen for messages from injected script
-    window.addEventListener('message', (event) => {
-      if (event.source !== window) return; // only accept messages from our page
-      if (event.data.type && event.data.type === 'LEETCODE_SUBMISSION') {
-        console.log('Submission status:', event.data.status);
-        if (event.data.status == "Accepted") {
-          console.log('accepted');
-          pokemon.capture();
-          animateThrowPokeball(pokemon);
-        } else {
-          console.log('not accepted');
-          animatePokemonFleeing(pokemon);
-        }
-      }
-    });
-    
+    window.addEventListener('message', (event) => handleSubmission(event));
   },
 });
+
