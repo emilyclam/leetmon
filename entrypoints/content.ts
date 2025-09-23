@@ -14,7 +14,7 @@ export default defineContentScript({
     const pokemon: Pokemon = await Pokemon.createRandom();
     animate.opening(pokemon);
 
-    const handleSubmission = (event: MessageEvent) => {
+    function handleSubmission(event: MessageEvent) {
       if (event.source !== window) return; // only accept messages from our page
         if (event.data.type && event.data.type === 'LEETCODE_SUBMISSION') {
           console.log('Submission status:', event.data.status);
@@ -29,7 +29,7 @@ export default defineContentScript({
     }
 
     // Listen for messages from injected script
-    window.addEventListener('message', (event) => handleSubmission(event));
+    window.addEventListener('message', handleSubmission);
   },
 });
 
