@@ -7,14 +7,14 @@ export class Pokemon {
   public readonly name: string;
   public readonly front: string;
   public readonly back: string;
-  public captureDate: Date | null | undefined;
+  public captureDate: Date | null;
 
   constructor(id: number, name: string, front: string, back: string) {
     this.id = id;
     this.name = name;
     this.front = front;
     this.back = back;
-    this.captureDate = undefined;
+    this.captureDate = null;
     // maybe: also save the problem that you got it from?
   }
 
