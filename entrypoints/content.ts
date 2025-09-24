@@ -7,35 +7,37 @@ export default defineContentScript({
   async main() {
     console.log("LeetMon extension loaded!");
 
-    const problemName = document.title.slice(0, -11);
-    let pokemon: Pokemon | void = await getPokemon(problemName);
+    let handler: (event: MessageEvent) => void;
+    let problemName: string;
+    let pokemon: Pokemon | void;
+
+    problemName = document.title.slice(0, -11);
+    pokemon = await encounterPokemon(problemName);
     if (pokemon) {
-      foo(pokemon);
+      handler = run(pokemon);   
     }
 
     browser.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
-      if (msg.problemName) {
+      if (msg.type == "NEW_PROBLEM") {
         // delete old items in the dom
         const oldSprite = document.getElementById('sprite');
         oldSprite?.remove();
-        
+        window.removeEventListener('message', handler);
 
-        console.log(msg.problemName);
-        let pokemon = await getPokemon(msg.problemName);
+        problemName = document.title.slice(0, -11);
+        pokemon = await encounterPokemon(problemName);
         if (pokemon) {
-          foo(pokemon);
+          handler = run(pokemon);
         }
       }
     });
 
-    // put everything below into a function, and on startup run it once
-    await injectScript('/check-submission.js', {
-      keepInDom: true,
-    });  
+    // script to detect new submission results (sends message)
+    await injectScript('/check-submission.js', { keepInDom: true });  
   },
 });
 
-async function getPokemon(problemName: string): Promise<Pokemon | void> {
+async function encounterPokemon(problemName: string): Promise<Pokemon | void> {
   const data = await browser.storage.local.get({ encounteredPokemon: {} });
   if (!(problemName in data.encounteredPokemon)) {
     const pokemon = await Pokemon.createRandom();
@@ -46,22 +48,26 @@ async function getPokemon(problemName: string): Promise<Pokemon | void> {
   }
 }
 
-function foo(pokemon: Pokemon) {
+function run(pokemon: Pokemon) {
   animate.opening(pokemon);
-  window.addEventListener('message', handleSubmission);
+  const handler = createSubmissionHandler(pokemon);
+  window.addEventListener('message', handler);
+  return handler;
+}
 
-  function handleSubmission(event: MessageEvent) {
+function createSubmissionHandler(pokemon: Pokemon) {
+  const handler = (event: MessageEvent) => {
   if (event.source !== window) return; // only accept messages from our page
     if (event.data.type && event.data.type === 'LEETCODE_SUBMISSION') {
-      console.log('Submission status:', event.data.status);
       if (event.data.status == "Accepted") {
         pokemon.capture();
         animate.throwPokeball(pokemon);
       } else {
         animate.pokemonFleeing(pokemon);
       }
-      window.removeEventListener('message', handleSubmission);
+      window.removeEventListener('message', handler);
     }
-}
+  }
+  return handler;
 }
 
