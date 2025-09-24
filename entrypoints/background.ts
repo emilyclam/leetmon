@@ -8,7 +8,7 @@ export default defineBackground(() => {
       let problem = change.title.slice(0, -11);
       if (problem != prevProblem) {
         prevProblem = problem;
-        browser.tabs.sendMessage(tab.id!, {problemName: problem});
+        browser.tabs.sendMessage(tab.id!, {type: 'NEW_PROBLEM'});
       }      
     }
   });
