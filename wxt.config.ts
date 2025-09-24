@@ -4,7 +4,7 @@ import { defineConfig } from 'wxt';
 export default defineConfig({
   manifest: {
     name: "LeetMon",
-    permissions: ['storage'],
+    permissions: ['storage', 'tabs'],
     web_accessible_resources: [{
       "resources": ["check-submission.js"],
       "matches": ["https://leetcode.com/*"]
