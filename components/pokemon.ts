@@ -7,7 +7,7 @@ export class Pokemon {
   public readonly name: string;
   public readonly front: string;
   public readonly back: string;
-  public captureDate: Date | null;
+  public captureDate: string | null;
 
   constructor(id: number, name: string, front: string, back: string) {
     this.id = id;
@@ -30,8 +30,20 @@ export class Pokemon {
     return await Pokemon.create(id);
   }
 
+  static createDateString() {
+    const d = new Date();
+    const localizedDateTime = d.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    return localizedDateTime;
+  }
+
   capture() {
-    this.captureDate = new Date();
+    this.captureDate = Pokemon.createDateString()
     browser.storage.local.get({ caughtPokemon: [] }, (data) => {
       const updated = data.caughtPokemon;
       updated.push(this);
