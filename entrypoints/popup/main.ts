@@ -1,3 +1,13 @@
+function populateInfoSection(pokemon: Pokemon) {
+  const sprite = document.querySelector('#infoSection img')! as HTMLImageElement;
+  const name = document.querySelector('#name')!;
+  const caughtProblem = document.querySelector('#caughtProblem')!;
+  const caughtDate = document.querySelector('#caughtDate')!;
+  
+  sprite.src = pokemon.front;
+  name.textContent = `${pokemon.name}`;
+  caughtDate.textContent = `captured on ${pokemon.captureDate!.toString()}`;
+}
 
 function populatePokemonList() {
   console.log("fill pokemon list")
@@ -14,10 +24,13 @@ function populatePokemonList() {
       const sprite = document.createElement("img");
       sprite.src = caughtPokemon[i].front;
       sprite.className = 'sprite';
+      sprite.addEventListener('click', () => populateInfoSection(caughtPokemon[i]));
       list.appendChild(sprite);
       // later: add onClick to see more details
       // or maybe in the tooltip?
     }
+
+    populateInfoSection(caughtPokemon[0]);
   });
 }
 

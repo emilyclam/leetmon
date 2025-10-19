@@ -28,9 +28,34 @@ h1 {
   margin: 0 0 20px 0; 
 }
 
+h3 {
+  font-family: titleFont;
+  letter-spacing: -4px;
+  font-size: 20px;
+  margin: 0 0 5px 0;
+}
+
 p {
   font-size: 15px;
   margin: 0px;
+}
+
+#infoSection {
+  display: flex;
+  margin: 10px;
+}
+
+.imgContainer {
+  min-width: 90px;
+  min-height: 90px;
+  padding: 10px;
+  border: solid 1px gray;
+  align-content: center;
+  text-align: center;
+}
+
+.detailsContainer {
+  padding: 10px;
 }
 
 #pokemonList {
@@ -52,4 +77,5 @@ p {
   justify-self: center;
   align-self: center;
   user-select: none;
+  cursor: pointer;
 }
