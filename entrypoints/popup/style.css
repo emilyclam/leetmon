@@ -54,6 +54,10 @@ p {
   text-align: center;
 }
 
+.imgContainer img {
+  cursor: grab;
+}
+
 .detailsContainer {
   padding: 10px;
 }

@@ -1,5 +1,7 @@
 export default defineBackground(() => {
   console.log('Hello background!');
+
+  //browser.tabs.sendMessage(tab.id!, {type: 'NEW_PROBLEM'});
   
   // detects when you change problems
   let prevProblem: string = '';

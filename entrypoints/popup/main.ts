@@ -3,10 +3,16 @@ function populateInfoSection(pokemon: Pokemon) {
   const name = document.querySelector('#name')!;
   const caughtProblem = document.querySelector('#caughtProblem')!;
   const caughtDate = document.querySelector('#caughtDate')!;
+  let viewFront = true;
   
   sprite.src = pokemon.front;
   name.textContent = `${pokemon.name}`;
   caughtDate.textContent = `captured on ${pokemon.captureDate!.toString()}`;
+
+  sprite.addEventListener('click', () => {
+    sprite.src = viewFront ? pokemon.back : pokemon.front;
+    viewFront = !viewFront;
+  })
 }
 
 function populatePokemonList() {
@@ -19,6 +25,8 @@ function populatePokemonList() {
       text.textContent = "You haven't caught any pokemon yet. Time to start leetcoding!";
       document.body.append(text);
       list.style.display = 'none';
+      const infoSection = document.getElementById('infoSection')!;
+      infoSection.style.display = 'none';
     }
     for (let i = 0; i < caughtPokemon.length; i++) {
       const sprite = document.createElement("img");
