@@ -10,6 +10,10 @@ export default defineUnlistedScript(() => {
       if (url.includes("/check")) {
         const data = await clone.json();
 
+        // checks that the /check is for a code submission, not just running the code
+        const taskType: string | undefined = data.task_name;
+        if (!taskType || taskType != 'judger.judgetask.Judge') return response;
+
         // GraphQL case: sometimes nested in data.submissionResult
         const statusMsg: string | undefined =
           data.status_msg ??
